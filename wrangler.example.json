@@ -1,0 +1,22 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "url-shorter-v2",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-04-24",
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "./public"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "kv_namespaces": [
+    {
+      "binding": "xxxx",
+      "id": "xxxx"
+    }
+  ],
+  "vars": {
+    "AUTH_TOKEN": "xxxx"
+  }
+}
