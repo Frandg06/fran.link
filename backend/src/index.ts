@@ -25,16 +25,16 @@ app.use(
     credentials: true,
   })
 );
-app.get('/', function (c) {
-  return c.body('Redirecting...', 302, {
-    Location: 'https://app.frandg.link',
-    'Cache-Control': 'no-store',
-  });
-});
+
 app.get('/:hash', get);
 app.get('/api/link', list);
 app.post('/api/link', authMiddleware, post);
 app.patch('/api/link/:hash', authMiddleware, update);
 app.delete('/api/link/:hash', authMiddleware, destroy);
-
+app.get('*', function (c) {
+  return c.body('Redirecting...', 302, {
+    Location: 'https://app.frandg.link',
+    'Cache-Control': 'no-store',
+  });
+});
 export default app;
