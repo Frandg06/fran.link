@@ -16,6 +16,7 @@ app.use(
       'https://frandg.link',
       'https://www.frandg.link',
       'https://app.frandg.link',
+      'https://fran-link.vercel.app',
     ],
     allowHeaders: ['Content-Type', 'Authorization', 'Accept', 'Location'],
     exposeHeaders: ['Location'],
