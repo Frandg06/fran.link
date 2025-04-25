@@ -14,6 +14,14 @@ export const post: Handler = async (c) => {
   if (exists) {
     return c.json({ error: true, message: '❌ Hash already exists' }, 409);
   }
-  await c.env.URLS.put(newHash, destination);
-  return c.json({ message: ':check Link created!' }, 200);
+
+  const newUrl = JSON.stringify({
+    hash: newHash,
+    destination,
+    createdAt: new Date().toISOString(),
+    clicks: 0,
+  });
+
+  await c.env.URLS.put(newHash, newUrl);
+  return c.json({ message: '✅ Link created!' }, 200);
 };

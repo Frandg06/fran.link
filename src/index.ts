@@ -10,7 +10,15 @@ import { cors } from 'hono/cors';
 const app = new Hono<{ Bindings: CloudflareBindings }>();
 app.use(
   cors({
-    origin: ['http://localhost', 'http://127.0.0.1', 'https://frandg.link', 'https://www.frandg.link'],
+    origin: [
+      'http://localhost:5173',
+      'http://127.0.0.1:5173',
+      'https://frandg.link',
+      'https://www.frandg.link',
+      'https://app.frandg.link',
+    ],
+    allowHeaders: ['Content-Type', 'Authorization', 'Accept', 'Location'],
+    exposeHeaders: ['Location'],
     allowMethods: ['POST', 'GET', 'OPTIONS', 'PATCH', 'DELETE'],
     maxAge: 600,
     credentials: true,

@@ -10,6 +10,12 @@ export const update: Handler = async (c) => {
   if (!url) {
     return c.json({ error: true, message: '❌ URL not found' }, 400);
   }
-  await c.env.URLS.put(id, destination || url);
+  await c.env.URLS.put(
+    id,
+    JSON.stringify({
+      ...url,
+      destination,
+    })
+  );
   return c.json({ message: ':check Link updated!' }, 200);
 };
