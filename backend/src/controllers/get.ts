@@ -11,7 +11,7 @@ export const get: Handler = async (c) => {
     });
   }
 
-  c.env.URLS.put(hash, JSON.stringify({ ...url, clicks: url.clicks + 1 }));
+  await c.env.URLS.put(hash, JSON.stringify({ ...url, clicks: url.clicks + 1 }));
 
   const validUrlLocation = url.destination.startsWith('http') ? url : `https://${url.destination}`;
 

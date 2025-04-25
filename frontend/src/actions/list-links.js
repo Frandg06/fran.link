@@ -1,5 +1,7 @@
+import { WORKER_URL } from '@/lib/config';
+
 export const getLinks = async () => {
-  const response = await fetch('https://frandg.link/api/link', {
+  const response = await fetch(`${WORKER_URL}/api/link`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',

@@ -47,7 +47,7 @@ function App() {
           <a>
             <Github className="size-5" />
           </a>
-          <button onClick={toggleTheme}>
+          <button onClick={toggleTheme} className="cursor-pointer">
             <Sun className="hidden dark:block size-5" />
             <Moon className="dark:hidden block size-5" />
           </button>

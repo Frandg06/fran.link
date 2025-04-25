@@ -1,6 +1,5 @@
 import { createLink } from '@/actions/create-link';
 import { getLinks } from '@/actions/list-links';
-import React from 'react';
 import { toast } from 'sonner';
 import { create } from 'zustand';
 
