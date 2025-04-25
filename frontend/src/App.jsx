@@ -18,12 +18,14 @@ import { CreateLink } from './components/create-link';
 import { useLinkStore } from './hooks/useLinkStore';
 import { useMemo } from 'react';
 import { useState } from 'react';
+import { DeleteLinkModal } from './components/delete-link-modal';
+import { toast } from 'sonner';
 
 function App() {
   const toggleTheme = useTheme();
   const [search, setSearch] = useState('');
 
-  const { getLinks, links } = useLinkStore();
+  const { getLinks, links, setActiveLink, activeLink } = useLinkStore();
 
   const searcheableLinks = useMemo(() => {
     return links.filter((link) => {
@@ -31,6 +33,11 @@ function App() {
       return link.hash.toLowerCase().includes(searchLower) || link.destination.toLowerCase().includes(searchLower);
     });
   }, [search, links]);
+
+  const copyToClipboard = (hash) => {
+    navigator.clipboard.writeText(`https://frandg.link/${hash}`);
+    toast.success('Enlace copiado al portapapeles');
+  };
 
   useEffect(() => {
     getLinks();
@@ -98,8 +105,20 @@ function App() {
                     <ChartNoAxesColumnIncreasing className="size-5" /> {link.clicks} clicks
                   </span>
                   <span className="block w-[1px] h-4 bg-muted-foreground" />
-                  <Copy className="size-4" />
-                  <Trash className="size-4" />
+                  <button
+                    type="button"
+                    onClick={() => copyToClipboard(link.hash)}
+                    className="hover:text-muted-foreground cursor-pointer"
+                  >
+                    <Copy className="size-4" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveLink(link.hash)}
+                    className="hover:text-muted-foreground cursor-pointer"
+                  >
+                    <Trash className="size-4" />
+                  </button>
                 </div>
               </div>
               <div className="flex items-end justify-between gap-4 font-mono text-muted-foreground mt-4 text-sm">
@@ -116,6 +135,7 @@ function App() {
           ))}
         </section>
       </main>
+      {activeLink && <DeleteLinkModal />}
     </>
   );
 }

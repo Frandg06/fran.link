@@ -1,12 +1,15 @@
 import { createLink } from '@/actions/create-link';
+import { deleteLink } from '@/actions/delete-link';
 import { getLinks } from '@/actions/list-links';
 import { toast } from 'sonner';
 import { create } from 'zustand';
 
-export const useLinkStore = create((set) => ({
+export const useLinkStore = create((set, get) => ({
   links: [],
+  activeLink: null,
   loading: false,
   error: false,
+  deleteModalOpen: false,
   getLinks: async () => {
     try {
       set({ loading: true });
@@ -34,6 +37,23 @@ export const useLinkStore = create((set) => ({
       set({ loading: false });
     }
   },
-  removeLink: (link) => set((state) => ({ links: state.links.filter((l) => l !== link) })),
+  toggleDeleteModal: () => set((state) => ({ deleteModalOpen: !state.deleteModalOpen })),
+  setActiveLink: (hash) => {
+    const link = get().links.find((link) => link.hash === hash);
+    set({ activeLink: link });
+    set({ deleteModalOpen: true });
+  },
+
+  removeLink: async (data) => {
+    try {
+      await deleteLink(data);
+      set((state) => ({ links: state.links.filter((link) => link.hash !== data.hash) }));
+      set({ deleteModalOpen: false });
+      set({ activeLink: null });
+      toast.success('Se ha eliminado el enlace correctamente');
+    } catch (error) {
+      toast.error(error.message);
+    }
+  },
   clearLinks: () => set({ links: [] }),
 }));

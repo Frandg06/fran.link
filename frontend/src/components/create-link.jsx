@@ -17,16 +17,25 @@ import { Rocket } from 'lucide-react';
 import { Shuffle } from 'lucide-react';
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
+import { z } from 'zod';
+
+const formSchema = z.object({
+  destination: z.string().nonempty('El destino es obligatorio').url('Debe ser una URL válida'),
+  hash: z.string().min(4, 'El hash debe tener exactamente 4 caracteres'),
+  authToken: z.string().nonempty('El token es obligatorio'),
+});
+
 export function CreateLink() {
   const { addLink, loading } = useLinkStore();
   const [open, setOpen] = useState(false);
-  const { handleChange, formData, errors, onHandleSubmit, resetForm } = useForm({
+  const { handleChange, formData, errors, handleSubmit, resetForm } = useForm({
     onSubmit: async () => {
       const res = await addLink(formData);
       if (res?.error) return;
       resetForm();
       setOpen(false);
     },
+    formSchema,
     initialValues: {
       destination: '',
       hash: '',
@@ -102,9 +111,9 @@ export function CreateLink() {
           </div>
         </form>
         <DialogFooter>
-          <Button type="submit" onClick={onHandleSubmit}>
+          <Button type="submit" onClick={handleSubmit}>
             {loading ? <Loader className="animate-spin" /> : <Rocket />}
-            Create
+            Crear
           </Button>
         </DialogFooter>
       </DialogContent>
