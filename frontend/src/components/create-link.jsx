@@ -21,7 +21,7 @@ import { z } from 'zod';
 
 const formSchema = z.object({
   destination: z.string().nonempty('El destino es obligatorio').url('Debe ser una URL válida'),
-  hash: z.string().min(4, 'El hash debe tener exactamente 4 caracteres'),
+  hash: z.string().min(2, 'El hash debe tener exactamente 4 caracteres'),
   authToken: z.string().nonempty('El token es obligatorio'),
 });
 
