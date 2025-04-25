@@ -52,7 +52,12 @@ function App() {
           frandg.link
         </div>
         <div className="flex items-center gap-4">
-          <a>
+          <a
+            href="https://github.com/Frandg06/fran.link"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-muted-foreground"
+          >
             <Github className="size-5" />
           </a>
           <button onClick={toggleTheme} className="cursor-pointer">
