@@ -13,7 +13,7 @@ export const get: Handler = async (c) => {
 
   await c.env.URLS.put(hash, JSON.stringify({ ...url, clicks: url.clicks + 1 }));
 
-  const validUrlLocation = url.destination.startsWith('http') ? url : `https://${url.destination}`;
+  const validUrlLocation = url.destination.startsWith('https') ? url.destination : `https://${url.destination}`;
 
   return c.body('Redirecting...', 302, {
     Location: validUrlLocation,

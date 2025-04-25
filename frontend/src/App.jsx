@@ -20,6 +20,7 @@ import { useMemo } from 'react';
 import { useState } from 'react';
 import { DeleteLinkModal } from './components/delete-link-modal';
 import { toast } from 'sonner';
+import { WORKER_URL } from './lib/config';
 
 function App() {
   const toggleTheme = useTheme();
@@ -92,11 +93,7 @@ function App() {
           {searcheableLinks?.map((link) => (
             <article key={link.hash} className="border rounded-sm p-4 flex flex-col gap-4 justify-between">
               <div className="flex items-center justify-between gap-4">
-                <a
-                  className="block hover:text-muted-foreground"
-                  href={`https://frandg.link/${link.hash}`}
-                  target="_blank"
-                >
+                <a className="block hover:text-muted-foreground" href={`${WORKER_URL}/${link.hash}`} target="_blank">
                   <span className="text-muted-foreground text-">/</span>
                   {link.hash}
                 </a>
@@ -124,7 +121,7 @@ function App() {
               <div className="flex items-end justify-between gap-4 font-mono text-muted-foreground mt-4 text-sm">
                 <a
                   className="block hover:underline flex-1 truncate"
-                  href={`https://frandg.link/${link.hash}`}
+                  href={`${WORKER_URL}/${link.hash}`}
                   target="_blank"
                 >
                   {link.destination}
