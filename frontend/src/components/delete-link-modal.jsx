@@ -52,15 +52,15 @@ export const DeleteLinkModal = () => {
     <Dialog open={deleteModalOpen} onOpenChange={toggleDeleteModal}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="font-mono">Nuevo Link</DialogTitle>
-          <DialogDescription>
-            Crea un nuevo enlace acortado desde aquí. Clicka crear cuando lo tengas listo.
+          <DialogTitle className="font-mono">Borrar /{activeLink.hash}</DialogTitle>
+          <DialogDescription className="text-destructive">
+            El acceso al link será eliminado permanentemente. Esta acción no se puede deshacer.
           </DialogDescription>
         </DialogHeader>
-        <form className="grid gap-4 py-4">
+        <form className="grid gap-2">
           <div className="grid gap-2">
-            <Label htmlFor="confirm" className="text-right">
-              Escribe "{activeLink.hash}" para confirmar
+            <Label htmlFor="confirm" className="text-right text-mono">
+              Escribe {activeLink.hash} para confirmar:
             </Label>
             <Input id="confirm" name="confirm" value={formData.confirm} onChange={handleChange} />
             <span className={errors.confirm ? 'text-sm text-destructive' : ''}>{errors.confirm}</span>
