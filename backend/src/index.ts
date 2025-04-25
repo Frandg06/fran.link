@@ -25,7 +25,7 @@ app.use(
   })
 );
 app.get('/:hash', get);
-app.get('/api/link', authMiddleware, list);
+app.get('/api/link', list);
 app.post('/api/link', authMiddleware, post);
 app.patch('/api/link/:hash', authMiddleware, update);
 app.delete('/api/link/:hash', authMiddleware, destroy);

@@ -5,7 +5,10 @@ export const get: Handler = async (c) => {
   const url = await c.env.URLS.get(hash, { type: 'json' });
 
   if (!url) {
-    return c.json({ error: true, message: '❌ URL not found' }, 400);
+    return c.body('Redirecting...', 302, {
+      Location: 'https://app.frandg.link',
+      'Cache-Control': 'no-store',
+    });
   }
 
   c.env.URLS.put(hash, JSON.stringify({ ...url, clicks: url.clicks + 1 }));
