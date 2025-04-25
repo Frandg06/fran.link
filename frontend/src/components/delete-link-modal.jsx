@@ -62,13 +62,7 @@ export const DeleteLinkModal = () => {
             <Label htmlFor="confirm" className="text-right">
               Escribe "{activeLink.hash}" para confirmar
             </Label>
-            <Input
-              id="confirm"
-              name="confirm"
-              value={formData.confirm}
-              onChange={handleChange}
-              // placeholder="https://"
-            />
+            <Input id="confirm" name="confirm" value={formData.confirm} onChange={handleChange} />
             <span className={errors.confirm ? 'text-sm text-destructive' : ''}>{errors.confirm}</span>
           </div>
           <Label htmlFor="authToken" className="text-right">
@@ -78,7 +72,7 @@ export const DeleteLinkModal = () => {
           <span className={errors.authToken ? 'text-sm text-destructive' : ''}>{errors.authToken}</span>
         </form>
         <DialogFooter>
-          <Button type="submit" onClick={handleSubmit} variant="destructive">
+          <Button type="submit" onClick={handleSubmit} variant="destructive" className="cursor-pointer">
             {loading ? <Loader className="animate-spin" /> : <Trash />}
             Borrar
           </Button>
