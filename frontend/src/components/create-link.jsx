@@ -45,11 +45,11 @@ export function CreateLink() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
-          className="rounded-sm dark:bg-neutral-700 dark:text-white ml-4 font-mono text-xs dark:hover:bg-neutral-900 hover:bg-neutral-700 cursor-pointer"
+          className="rounded-sm dark:bg-neutral-700 dark:text-white ml-2 md:ml-4 font-mono text-xs dark:hover:bg-neutral-900 hover:bg-neutral-700 cursor-pointer"
           size="sm"
         >
           <Plus />
-          Nuevo link
+          <span className="md:block hidden">Nuevo link</span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">

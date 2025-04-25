@@ -67,7 +67,7 @@ function App() {
             <Input
               type="search"
               placeholder="Buscar link..."
-              className="w-72 rounded-sm pl-7"
+              className="w-42 md:w-72 rounded-sm pl-7"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -103,10 +103,14 @@ function App() {
                 </div>
               </div>
               <div className="flex items-end justify-between gap-4 font-mono text-muted-foreground mt-4 text-sm">
-                <a className="block hover:underline" href={`https://frandg.link/${link.hash}`} target="_blank">
+                <a
+                  className="block hover:underline flex-1 truncate"
+                  href={`https://frandg.link/${link.hash}`}
+                  target="_blank"
+                >
                   {link.destination}
                 </a>
-                <span>{format(new Date(link.createdAt), 'es', { dateStyle: 'long' })}</span>
+                <span className="block ">{format(new Date(link.createdAt), 'es', { dateStyle: 'long' })}</span>
               </div>
             </article>
           ))}
