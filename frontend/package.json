@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@clerk/clerk-react": "^5.30.3",
+    "@clerk/localizations": "^3.14.3",
+    "@clerk/themes": "^2.2.39",
     "@fontsource-variable/atkinson-hyperlegible-next": "^5.2.1",
     "@fontsource-variable/jetbrains-mono": "^5.2.5",
     "@radix-ui/react-dialog": "^1.1.11",
@@ -26,6 +29,7 @@
     "sonner": "^2.0.3",
     "tailwind-merge": "^3.2.0",
     "tailwindcss": "^4.1.4",
+    "wouter": "^3.7.0",
     "zod": "^3.24.3",
     "zustand": "^5.0.3"
   },

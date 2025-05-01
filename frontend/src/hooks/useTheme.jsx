@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 
 export const useTheme = () => {
+  const [theme, setTheme] = useState('');
+
   const toggleTheme = () => {
     const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -13,10 +15,11 @@ export const useTheme = () => {
 
   useEffect(() => {
     const theme = localStorage.getItem('theme');
+    setTheme(theme);
     if (theme) {
       document.documentElement.classList.add(theme);
     }
   }, []);
 
-  return toggleTheme;
+  return { theme, toggleTheme };
 };
