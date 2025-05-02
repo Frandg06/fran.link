@@ -1,6 +1,6 @@
-# ShortLink Worker Backend (Cloudflare KV + Hono)
+# ShortLink Worker Backend (Cloudflare D1 + Hono)
 
-Servicio **serverless** para generar y resolver enlaces cortos empleando **Cloudflare Workers**, el micro‑framework **[Hono](https://hono.dev/)** y un **Workers KV Namespace** como almacenamiento clave‑valor.  
+Servicio **serverless** para generar y resolver enlaces cortos empleando **Cloudflare Workers**, el micro‑framework **[Hono](https://hono.dev/)** y un **D1 Database** como almacenamiento clave‑valor.  
 La aplicación expone una API REST muy simple:
 
 1. **Crear** un alias a partir de una URL larga.
