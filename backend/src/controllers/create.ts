@@ -26,7 +26,6 @@ export const post: Handler = async (c) => {
 
     return c.json(newUrl, 200);
   } catch (error) {
-    console.log(error);
     return c.json({ error: true, error_message: 'El identificador para acortar la url ya existe' }, 409);
   }
 };
