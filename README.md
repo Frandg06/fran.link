@@ -15,13 +15,12 @@ Todas las rutas mutadoras y la de listado requieren un token simple de autorizac
 
 ## Tabla rápida de rutas
 
-| Método   | Path              | Requiere Auth | Descripción                               |
-| -------- | ----------------- | ------------- | ----------------------------------------- |
-| `GET`    | `/:hash`          | ❌            | Redirige (`302`) al destino almacenado.   |
-| `GET`    | `/api/link`       | ✅            | Devuelve la lista de alias.               |
-| `POST`   | `/api/link`       | ✅            | Crea un alias nuevo con hash aleatorio.   |
-| `PATCH`  | `/api/link/:hash` | ✅            | Actualiza el destino de un hash concreto. |
-| `DELETE` | `/api/link/:hash` | ✅            | Elimina el alias indicado.                |
+| Método   | Path              | Requiere Auth | Descripción                             |
+| -------- | ----------------- | ------------- | --------------------------------------- |
+| `GET`    | `/:hash`          | ❌            | Redirige (`302`) al destino almacenado. |
+| `GET`    | `/api/link`       | ✅            | Devuelve la lista de alias.             |
+| `POST`   | `/api/link`       | ✅            | Crea un alias nuevo con hash aleatorio. |
+| `DELETE` | `/api/link/:hash` | ✅            | Elimina el alias indicado.              |
 
 > **Nota:** Si el destino no comienza por `http` o `https`, el Worker añadirá automáticamente el prefijo `https://`.
 
@@ -84,17 +83,18 @@ curl -X DELETE https://tu-dominio.com/api/link/docs -H "Authorization: super-sec
 
 ## Variables de entorno
 
-| Nombre       | Descripción                                            |
-| ------------ | ------------------------------------------------------ |
-| `AUTH_TOKEN` | Token exacto requerido en la cabecera `Authorization`. |
+| Nombre                  | Descripción                                            |
+| ----------------------- | ------------------------------------------------------ |
+| `CLERK_PUBLISHABLE_KEY` | Token exacto requerido en la cabecera `Authorization`. |
+| `CLERK_SECRET_KEY`      | Token exacto requerido en la cabecera `Authorization`. |
 
 ---
 
 ## Futuras mejoras
 
 - Expiración (TTL) configurable por alias.
-- Estadísticas de clics e IP anónimas.
 - Generación de códigos QR.
+- Editar urls
 - Limitación de peticiones por IP para evitar abuso.
 
 ---
