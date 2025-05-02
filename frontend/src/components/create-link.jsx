@@ -22,7 +22,6 @@ import { z } from 'zod';
 const formSchema = z.object({
   destination: z.string().nonempty('El destino es obligatorio').url('Debe ser una URL válida'),
   hash: z.string().min(2, 'El hash debe tener exactamente 4 caracteres'),
-  authToken: z.string().nonempty('El token es obligatorio'),
 });
 
 export function CreateLink() {
@@ -39,7 +38,6 @@ export function CreateLink() {
     initialValues: {
       destination: '',
       hash: '',
-      authToken: '',
     },
   });
 
@@ -101,13 +99,6 @@ export function CreateLink() {
               </Button>
             </div>
             <span className={errors.hash ? 'text-sm text-destructive' : ''}>{errors.hash}</span>
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="authToken" className="text-right">
-              Auth Token
-            </Label>
-            <Input id="authToken" name="authToken" value={formData.authToken} onChange={handleChange} />
-            <span className={errors.authToken ? 'text-sm text-destructive' : ''}>{errors.authToken}</span>
           </div>
         </form>
         <DialogFooter>

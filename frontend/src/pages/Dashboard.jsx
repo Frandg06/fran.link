@@ -17,12 +17,12 @@ import { DeleteLinkModal } from '@/components/delete-link-modal';
 import { toast } from 'sonner';
 import { WORKER_URL } from '@/lib/config';
 import Layout from '@/components/layout';
-import { useGetLinks } from '@/actions/list-links';
+import { useAuth } from '@clerk/clerk-react';
 
 const Dashboard = () => {
   const [search, setSearch] = useState('');
 
-  const fetchLinks = useGetLinks();
+  const { getToken } = useAuth();
 
   const { getLinks, links, setActiveLink, activeLink } = useLinkStore();
 
@@ -39,9 +39,13 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    getLinks(fetchLinks);
+    (async () => {
+      const token = await getToken();
+      localStorage.setItem('bearerToken', token);
+      await getLinks();
+    })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getLinks]);
+  }, []);
 
   return (
     <Layout>

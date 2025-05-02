@@ -1,10 +1,12 @@
 import { Handler } from 'hono';
+import { getAuth } from '@hono/clerk-auth';
 
 export const authMiddleware: Handler = (c, next) => {
-  const authHeader = c.req.header('Authorization');
+  const auth = getAuth(c);
 
-  if (!authHeader || authHeader !== c.env.AUTH_TOKEN) {
+  if (!auth?.userId) {
     return c.json({ message: 'Unauthorized', error: true }, 401);
   }
+
   return next();
 };

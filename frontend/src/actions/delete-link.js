@@ -1,11 +1,11 @@
 import { WORKER_URL } from '@/lib/config';
 
-export const deleteLink = async ({ hash, authToken }) => {
+export const deleteLink = async ({ hash }) => {
   const response = await fetch(`${WORKER_URL}/api/link/${hash}`, {
     method: 'DELETE',
     headers: {
       Accept: 'application/json',
-      Authorization: authToken,
+      Authorization: `Bearer ${localStorage.getItem('bearerToken')}`,
     },
   });
 

@@ -1,16 +1,16 @@
 import { WORKER_URL } from '@/lib/config';
 
-export const createLink = async (data) => {
+export const createLink = async ({ destination, hash }) => {
   const response = await fetch(`${WORKER_URL}/api/link`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      Authorization: data.authToken,
+      Authorization: `Bearer ${localStorage.getItem('bearerToken')}`,
     },
     body: JSON.stringify({
-      destination: data.destination,
-      hash: data.hash,
+      destination,
+      hash,
     }),
   });
 

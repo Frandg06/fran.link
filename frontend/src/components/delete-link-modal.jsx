@@ -20,7 +20,6 @@ const formSchema = z
   .object({
     hash: z.string().nonempty('El hash es obligatorio'),
     confirm: z.string().nonempty('Debes confirmar el hash'),
-    authToken: z.string().nonempty('El token es obligatorio'),
   })
   .refine((data) => data.hash === data.confirm, {
     message: 'Los hashes no coinciden',
@@ -33,7 +32,6 @@ export const DeleteLinkModal = () => {
     initialValues: {
       hash: activeLink.hash,
       confirm: '',
-      authToken: '',
     },
     formSchema,
     onSubmit: () => {
@@ -63,11 +61,6 @@ export const DeleteLinkModal = () => {
             <Input id="confirm" name="confirm" value={formData.confirm} onChange={handleChange} />
             <span className={errors.confirm ? 'text-sm text-destructive' : ''}>{errors.confirm}</span>
           </div>
-          <Label htmlFor="authToken" className="text-right">
-            Auth Token
-          </Label>
-          <Input id="authToken" name="authToken" value={formData.authToken} onChange={handleChange} />
-          <span className={errors.authToken ? 'text-sm text-destructive' : ''}>{errors.authToken}</span>
         </form>
         <DialogFooter>
           <Button type="submit" onClick={handleSubmit} variant="destructive" className="cursor-pointer">

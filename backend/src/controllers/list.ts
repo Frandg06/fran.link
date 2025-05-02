@@ -1,9 +1,9 @@
 import { Handler } from 'hono';
+import { getAuth } from '@hono/clerk-auth';
 
 export const list: Handler = async (c) => {
-  const { keys } = await c.env.URLS.list();
-
-  const allKeys = await Promise.all(keys.map((key: Link) => c.env.URLS.get(key.name, { type: 'json' })));
-
-  return c.json(allKeys, 200);
+  const auth = getAuth(c);
+  console.log(auth);
+  const list = await c.env.URLS.get(auth?.userId, { type: 'json' });
+  return c.json(list?.urls ?? [], 200);
 };

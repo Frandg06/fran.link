@@ -3,6 +3,9 @@
 interface CloudflareBindings {}
 
 interface Link {
+  hash: string;
+  destination: string;
+  createdAt: string;
+  clicks: number;
   name: string;
-  value: string;
 }

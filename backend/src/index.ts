@@ -3,9 +3,9 @@ import { authMiddleware } from './middleware/auth';
 import { get } from './controllers/get';
 import { list } from './controllers/list';
 import { post } from './controllers/create';
-import { update } from './controllers/update';
 import { destroy } from './controllers/delete';
 import { cors } from 'hono/cors';
+import { clerkMiddleware } from '@hono/clerk-auth';
 
 const app = new Hono<{ Bindings: CloudflareBindings }>();
 app.use(
@@ -29,9 +29,9 @@ app.use(
 );
 
 app.get('/:hash', get);
-app.get('/api/link', list);
+app.use('/api/*', clerkMiddleware());
+app.get('/api/link', authMiddleware, list);
 app.post('/api/link', authMiddleware, post);
-app.patch('/api/link/:hash', authMiddleware, update);
 app.delete('/api/link/:hash', authMiddleware, destroy);
 app.get('*', function (c) {
   return c.body('Redirecting...', 302, {
