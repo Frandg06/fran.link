@@ -1,5 +1,6 @@
 import { Handler } from 'hono';
 import { getAuth } from '@hono/clerk-auth';
+import { list } from './list';
 
 export const post: Handler = async (c) => {
   const body = await c.req.json();
@@ -7,24 +8,25 @@ export const post: Handler = async (c) => {
 
   const { destination, hash } = body;
 
-  if (!destination) {
+  if (!destination || !hash) {
     return c.json({ error: true, error_message: 'La URL de destino es obligatoria' }, 400);
   }
 
-  const newHash = hash || Math.random().toString(36).slice(2, 10);
-  const list = await c.env.URLS.get(auth?.userId, { type: 'json' });
-
-  if (list?.urls.find((url: Link) => url.hash === newHash)) {
-    return c.json({ error: true, error_message: 'El identificador para acortar la url ya existe' }, 409);
-  }
-
   const newUrl = {
-    hash: newHash,
+    hash,
     destination,
     createdAt: new Date().toISOString(),
     clicks: 0,
   };
 
-  await c.env.URLS.put(auth?.userId, JSON.stringify({ urls: [...(list?.urls ?? []), newUrl] }));
-  return c.json(newUrl, 200);
+  try {
+    await c.env.DB.prepare('INSERT INTO Links (userId, hash, destination, createdAt, clicks) VALUES (?, ?, ?, ?, ?)')
+      .bind(auth?.userId, hash, destination, new Date().toISOString(), 0)
+      .run();
+
+    return c.json(newUrl, 200);
+  } catch (error) {
+    console.log(error);
+    return c.json({ error: true, error_message: 'El identificador para acortar la url ya existe' }, 409);
+  }
 };

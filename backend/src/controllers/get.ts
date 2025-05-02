@@ -1,28 +1,22 @@
 import { Handler } from 'hono';
-import { getAuth } from '@hono/clerk-auth';
-
 export const get: Handler = async (c) => {
-  const auth = getAuth(c);
   const hash = c.req.param('hash');
-  const list = await c.env.URLS.get(auth?.userId, { type: 'json' });
-  const url = list?.urls.find((url: Link) => url.hash === hash);
 
-  if (!url) {
+  const results = await c.env.DB.prepare('SELECT * from Links WHERE hash = ?').bind(hash).first();
+
+  if (!results) {
     return c.body('Redirecting...', 302, {
       Location: 'https://app.frandg.link',
       'Cache-Control': 'no-store',
     });
   }
 
-  await c.env.URLS.put(
-    auth?.userId,
-    JSON.stringify({
-      urls: list?.urls.map((url: Link) => (url.hash === hash ? { ...url, clicks: url.clicks + 1 } : url)),
-    })
-  );
+  await c.env.DB.prepare('UPDATE Links SET clicks = ? WHERE hash = ?')
+    .bind(results.clicks + 1, hash)
+    .run();
 
   return c.body('Redirecting...', 302, {
-    Location: url.destination,
+    Location: results.destination,
     'Cache-Control': 'no-store',
   });
 };
