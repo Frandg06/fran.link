@@ -1,6 +1,5 @@
 import { createLink } from '@/actions/create-link';
 import { deleteLink } from '@/actions/delete-link';
-import { getLinks } from '@/actions/list-links';
 import { toast } from 'sonner';
 import { create } from 'zustand';
 
@@ -10,10 +9,10 @@ export const useLinkStore = create((set, get) => ({
   loading: false,
   error: false,
   deleteModalOpen: false,
-  getLinks: async () => {
+  getLinks: async (fn) => {
     try {
       set({ loading: true });
-      const response = await getLinks();
+      const response = await fn();
       set({ links: response });
     } catch (error) {
       set({ links: [] });

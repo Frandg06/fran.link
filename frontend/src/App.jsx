@@ -7,7 +7,6 @@ import { ClerkProvider } from '@clerk/clerk-react';
 import { esES } from '@clerk/localizations';
 import { SignedIn } from '@clerk/clerk-react';
 import { Router } from 'wouter';
-import { Redirect } from 'wouter';
 import { useTheme } from './hooks/useTheme';
 import { dark } from '@clerk/themes';
 
@@ -33,14 +32,9 @@ function App() {
         <SignedIn>
           <Route path="/dashboard" component={Dashboard} />
         </SignedIn>
-        {/* <Route path="*" component={RedirectToHome} /> */}
       </Router>
     </ClerkProvider>
   );
 }
-
-const RedirectToHome = () => {
-  return <Redirect to="/" replace />;
-};
 
 export default App;
